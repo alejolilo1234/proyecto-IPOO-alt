@@ -15,7 +15,6 @@ string interfaz[5][4] =
 {"Conejo","","",""},
 {"Lechuga","","",""}
 };
-
 string columna;
 
 void enunciado();
