@@ -7,7 +7,8 @@
 #include"./Headers/Personajes/Conejo.h"
 
 bool play = true;
-string interfaz[5][4] = 
+string name;
+string matrix[5][4] = 
 {
 {"IZQUIERDA","BARCA","","DERECHA"},
 {"Robot","","",""},
@@ -16,7 +17,7 @@ string interfaz[5][4] =
 {"Lechuga","","",""}
 };
 
-
+void pedirNombre();
 void enunciado();
 void crearInterfaz();
 void mover();
@@ -24,17 +25,27 @@ void clear();
 
 int main()
 {
+  pedirNombre();
+
   enunciado();
 
   crearInterfaz();
 
-
   return 0;
+}
+
+void pedirNombre()
+{
+  cout << "¿Cual es tu nombre? "; getline(cin,name);
+  if(name == "")
+  {
+    name = "JUGADOR";
+  }
 }
 
 void enunciado()
 {
-  cout << "\nEres un Robot y tu misión es llevar todos los individuos a la otra orilla, usando la barca. Pero no puedes dejar solos al zorro con el conejo, ni al conejo con la lechuga, porque el primero se devoraría al segundo. En la barca solo caben dos individuos, y uno de ellos debes ser tú, para pilotarla. Las órdenes que puedes dar son:\n\n\t- B para mover Barca\n\t- R para mover Robot\n\t- Z para mover Zorro\n\t- C para mover Conejo\n\t- L para mover Lechuga\n\t- Q para rendirte\n\n";
+  cout << "\n¡Bienvenido " << name <<  "!\n\nEres un Robot y tu misión es llevar todos los individuos a la otra orilla, usando la barca. Pero no puedes dejar solos al zorro con el conejo, ni al conejo con la lechuga, porque el primero se devoraría al segundo. En la barca solo caben dos individuos, y uno de ellos debes ser tú, para pilotarla. Las órdenes que puedes dar son:\n\n\t- B para mover Barca\n\t- R para mover Robot\n\t- Z para mover Zorro\n\t- C para mover Conejo\n\t- L para mover Lechuga\n\t- Q para rendirte\n\n";
 }
 
 void crearInterfaz()
@@ -48,13 +59,13 @@ void crearInterfaz()
       cout << "| ";
       for(int j = 0; j < 4; j++)
       {
-        if(interfaz[i][j].length() < 9)
+        if(matrix[i][j].length() < 9)
         {
-          int espacios = 9 - interfaz[i][j].length(); cout << interfaz[i][j];
+          int espacios = 9 - matrix[i][j].length(); cout << matrix[i][j];
 
           for(int i = 0;i < espacios; i++) cout << "."; cout << " | ";
         } 
-        else cout << interfaz[i][j] << " | ";
+        else cout << matrix[i][j] << " | ";
       }
       cout << endl;
     }
@@ -74,45 +85,45 @@ void mover()
   if((mover != "B" || mover != "b") || (mover != "R" || mover != "r") || (mover != "Z" || mover != "z") || (mover != "C" || mover != "c") || (mover != "L" || mover != "l") || (mover != "Q" || mover != "q"))
   {
     system("clear");
-    cout << "Error" << endl;
+    cout << "No " << name << ", recuerda que solo puedes ingresar las letras B, R, Z, C, L y Q." << endl << endl;
   }
   //Para BARCA
-  if((mover == "B" || mover == "b") && interfaz[0][2] == "")
+  if((mover == "B" || mover == "b") && matrix[0][2] == "")
   {
-    interfaz[0][1] = "";
-    interfaz[0][2] = "BARCA";
+    matrix[0][1] = "";
+    matrix[0][2] = "BARCA";
     clear();
   }
-  else if((mover == "B" || mover == "b") && interfaz[0][2] == "BARCA")
+  else if((mover == "B" || mover == "b") && matrix[0][2] == "BARCA")
   {
-    interfaz[0][1] = "BARCA";
-    interfaz[0][2] = "";
+    matrix[0][1] = "BARCA";
+    matrix[0][2] = "";
     clear();
   }
   //Para Robot
-  if((mover == "R" || mover == "r") && interfaz[1][1] == "")
+  if((mover == "R" || mover == "r") && matrix[1][1] == "")
   {
-    interfaz[1][0] = "";
-    interfaz[1][1] = "Robot";
+    matrix[1][0] = "";
+    matrix[1][1] = "Robot";
     clear();
   }
-  else if((mover == "R" || mover == "r") && interfaz[1][1] == "Robot")
+  else if((mover == "R" || mover == "r") && matrix[1][1] == "Robot")
   {
-    interfaz[1][0] = "Robot";
-    interfaz[1][1] = "";
+    matrix[1][0] = "Robot";
+    matrix[1][1] = "";
     clear();
   }
   //Para Zorro
-  if((mover == "Z" || mover == "z") && interfaz[2][1] == "")
+  if((mover == "Z" || mover == "z") && matrix[2][1] == "")
   {
-    interfaz[2][0] = "";
-    interfaz[2][1] = "Zorro";
+    matrix[2][0] = "";
+    matrix[2][1] = "Zorro";
     clear();
   }
-  else if((mover == "Z" || mover == "z") && interfaz[2][1] == "Zorro")
+  else if((mover == "Z" || mover == "z") && matrix[2][1] == "Zorro")
   {
-    interfaz[2][0] = "Zorro";
-    interfaz[2][1] = "";
+    matrix[2][0] = "Zorro";
+    matrix[2][1] = "";
     clear();
   }
   //Para rendirse
@@ -127,6 +138,6 @@ void mover()
 void clear()
 {
   system("clear");
-  cout << "Juego" << endl <<endl;
+  cout << "B = Barca, Z = Zorro" << endl <<endl;
   crearInterfaz();
 }
