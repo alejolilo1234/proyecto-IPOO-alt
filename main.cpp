@@ -1,10 +1,13 @@
 #include<iostream>
-#include<vector>
+// #include<vector>
 #include<stdlib.h>
 #include<string.h>
+// #include<conio.h>
 
 #include"./Headers/Personaje.h"
 #include"./Headers/Personajes/Conejo.h"
+#include"./ASCII Art/GANASTE.h"
+#include"./ASCII Art/PERDISTE.h"
 
 bool play = true;
 string name;
@@ -22,6 +25,7 @@ void enunciado();
 void crearInterfaz();
 void mover();
 void clear();
+void gotoxy();
 
 int main()
 {
@@ -80,58 +84,78 @@ void mover()
   string mover;
 
   cout << "\n¿Que desea mover? "; getline(cin,mover);
+  
+  mover[0] = toupper(mover[0]);
 
   //Si ninguna letra esta
-  if((mover != "B" || mover != "b") || (mover != "R" || mover != "r") || (mover != "Z" || mover != "z") || (mover != "C" || mover != "c") || (mover != "L" || mover != "l") || (mover != "Q" || mover != "q"))
+  if((mover != "B") || (mover != "R") || (mover != "Z") || (mover != "C") || (mover != "L") || (mover != "Q"))
   {
     system("clear");
     cout << "No " << name << ", recuerda que solo puedes ingresar las letras B, R, Z, C, L y Q." << endl << endl;
   }
-  //Para BARCA
-  if((mover == "B" || mover == "b") && matrix[0][2] == "")
+  //Para BARCA vacia
+  if((mover == "B") && matrix[0][2] == "")
   {
     matrix[0][1] = "";
     matrix[0][2] = "BARCA";
     clear();
   }
-  else if((mover == "B" || mover == "b") && matrix[0][2] == "BARCA")
+  else if((mover == "B") && matrix[0][2] == "BARCA")
   {
     matrix[0][1] = "BARCA";
     matrix[0][2] = "";
     clear();
   }
+  //Para BARCA llena
+  if((mover == "B") && matrix[0][2] == "" && matrix[1][1] != "")
+  {
+    matrix[0][1] = "";
+    matrix[0][2] = "BARCA";
+    matrix[1][2] = "Se movio";
+    // matrix[1][2] = matrix[1][1];
+    matrix[1][1] = "";
+    clear();
+    // cout << matrix[1][1] << " & " << matrix[1][2]; 
+  }
   //Para Robot
-  if((mover == "R" || mover == "r") && matrix[1][1] == "")
+  if((mover == "R") && matrix[1][1] == "")
   {
     matrix[1][0] = "";
     matrix[1][1] = "Robot";
     clear();
   }
-  else if((mover == "R" || mover == "r") && matrix[1][1] == "Robot")
+  else if((mover == "R") && matrix[1][1] == "Robot")
   {
     matrix[1][0] = "Robot";
     matrix[1][1] = "";
     clear();
   }
+  // else if((mover == "R" || mover == "r") && matrix[1][2] == "Robot" && matrix[1][3] == "")
+  // {
+  //   matrix[1][2] = "";
+  //   matrix[1][1] = "Robot";
+  // }
   //Para Zorro
-  if((mover == "Z" || mover == "z") && matrix[2][1] == "")
+  if((mover == "Z") && matrix[2][1] == "")
   {
     matrix[2][0] = "";
     matrix[2][1] = "Zorro";
     clear();
   }
-  else if((mover == "Z" || mover == "z") && matrix[2][1] == "Zorro")
+  else if((mover == "Z") && matrix[2][1] == "Zorro")
   {
     matrix[2][0] = "Zorro";
     matrix[2][1] = "";
     clear();
   }
   //Para rendirse
-  if(mover == "Q" || mover == "q")
+  if(mover == "Q")
   {
     play = false;
     system("clear");
-    cout << "PERDISTE :C" << endl;
+    cout << name << ", PERDISTE" << endl << endl;
+    // ganaste();
+    perdiste();
   }
   // cout << endl;
 }
