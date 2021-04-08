@@ -9,17 +9,18 @@
 bool play = true;
 string interfaz[5][4] = 
 {
-{"IZQUIERDA","","BARCA","DERECHA"},
+{"IZQUIERDA","BARCA","","DERECHA"},
 {"Robot","","",""},
 {"Zorro","","",""},
 {"Conejo","","",""},
 {"Lechuga","","",""}
 };
-string columna;
+
 
 void enunciado();
 void crearInterfaz();
 void mover();
+void clear();
 
 int main()
 {
@@ -27,7 +28,6 @@ int main()
 
   crearInterfaz();
 
-  // mover();
 
   return 0;
 }
@@ -66,21 +66,67 @@ void crearInterfaz()
 
 void mover()
 {
-  cout << "\n¿Que desea mover? "; getline(cin,columna);
+  string mover;
 
-  if(columna == "B")
+  cout << "\n¿Que desea mover? "; getline(cin,mover);
+
+  //Si ninguna letra esta
+  if((mover != "B" || mover != "b") || (mover != "R" || mover != "r") || (mover != "Z" || mover != "z") || (mover != "C" || mover != "c") || (mover != "L" || mover != "l") || (mover != "Q" || mover != "q"))
+  {
+    system("clear");
+    cout << "Error" << endl;
+  }
+  //Para BARCA
+  if((mover == "B" || mover == "b") && interfaz[0][2] == "")
+  {
+    interfaz[0][1] = "";
+    interfaz[0][2] = "BARCA";
+    clear();
+  }
+  else if((mover == "B" || mover == "b") && interfaz[0][2] == "BARCA")
   {
     interfaz[0][1] = "BARCA";
-    interfaz[0][2] = "..";
-    // cout << interfaz[0][2];
-    
+    interfaz[0][2] = "";
+    clear();
   }
-  if(columna == "b")
+  //Para Robot
+  if((mover == "R" || mover == "r") && interfaz[1][1] == "")
   {
-    interfaz[0][1] = "..";
-    interfaz[0][2] = "BARCA";
-    // cout << interfaz[0][2];
+    interfaz[1][0] = "";
+    interfaz[1][1] = "Robot";
+    clear();
   }
-  
-  cout << endl;
+  else if((mover == "R" || mover == "r") && interfaz[1][1] == "Robot")
+  {
+    interfaz[1][0] = "Robot";
+    interfaz[1][1] = "";
+    clear();
+  }
+  //Para Zorro
+  if((mover == "Z" || mover == "z") && interfaz[2][1] == "")
+  {
+    interfaz[2][0] = "";
+    interfaz[2][1] = "Zorro";
+    clear();
+  }
+  else if((mover == "Z" || mover == "z") && interfaz[2][1] == "Zorro")
+  {
+    interfaz[2][0] = "Zorro";
+    interfaz[2][1] = "";
+    clear();
+  }
+  //Para rendirse
+  if(mover == "Q" || mover == "q")
+  {
+    play = false;
+    system("clear");
+    cout << "PERDISTE :C" << endl;
+  }
+  // cout << endl;
+}
+void clear()
+{
+  system("clear");
+  cout << "Juego" << endl <<endl;
+  crearInterfaz();
 }
